@@ -1,4 +1,6 @@
-<?php if ( ! defined('root_path')) exit('No direct script access allowed');
+<?php namespace SF_core;
+if ( ! defined('root_path')) exit('No direct script access allowed');
+
 
 class SF_model{
 	protected $db;
@@ -19,7 +21,7 @@ class SF_model{
 				$database->db_name,
 				$database->port
 			);
-			$sf->set_core('sql', $this->db);
+			$sf->load_core('sql', $this->db);
 		} else {
 			$this->db = $sf->get_core('sql');
 		}
@@ -30,9 +32,11 @@ class SF_model{
 		$this->error .= $msg . '<br />';
 	}
 
-	protected function filter(&$string)
+	protected function filter($string)
 	{
-		$this->db->real_escape_string($string);
+		$string = $this->db->real_escape_string($string);
+		$string = htmlentities($string, ENT_QUOTES, 'UTF-8');
+		return $string;
 	}
 
 }//end MY_model

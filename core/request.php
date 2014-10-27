@@ -1,4 +1,5 @@
-<?php if ( ! defined('root_path')) exit('No direct script access allowed');
+<?php namespace SF_core; 
+if ( ! defined('root_path')) exit('No direct script access allowed');
 
 class request
 {
@@ -6,21 +7,15 @@ class request
 	public function __construct()
 	{
 		//_SESSION, _POST, _GET,  _REQUEST, _SERVER
-		$sys = array('GET', 'POST', 'REQUEST', 'SERVER');
-		foreach($sys as $name){
-			$val_name = '_' . $name;
-			if(! empty($GLOBALS[$val_name])  )
+		$sys = array('GET'=>$_GET, 'POST'=>$_POST, 'REQUEST'=>$_REQUEST, 'SERVER'=>$_SERVER, 'COOKIE'=>$_COOKIE);
+		foreach($sys as $name=>$info){
+			if( !empty($info) )
 			{
-				$this->data[$name] = array();
-				foreach( $GLOBALS[$val_name] as $key=>$value ){
-					//check if it's POST
-					if($val_name = 'POST'){
-						$this->filter($value);
-					}
+				foreach( $info as $key=>$value ){
 					$this->data[$name][$key] = $value;
 				}
-				unset($GLOBALS[$val_name]);
 			}
+			unset($info);
 		}
 	}
 
@@ -83,10 +78,6 @@ class request
 		}
 	}
 
-	public function filter(&$str)
-	{
-		$str = mysql_real_escape_string($str);
-	}
 
 
 }

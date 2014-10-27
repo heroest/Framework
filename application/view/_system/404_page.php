@@ -5,7 +5,7 @@
 
 <body>
 <p align="center"><strong>ERROR 404</strong></p>
-<p align="center"><strong><?php echo $page?> not found</strong></p>
+<p align="center"><strong><?php echo $page?></strong></p>
 <hr />
 <p align="center"><span style="color:red"><?php echo $warning?></span></p>
 </body>

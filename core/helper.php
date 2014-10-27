@@ -4,7 +4,7 @@
 function base_url( $url = '' )
 {
 	//get globals
-	$sf = framework::getInstance();
+	$sf = \SF_core\framework::getInstance();
 	$req = $sf->get_core('request');
 
 	$pre = $req->get_globals('SERVER', 'HTTPS') === True 

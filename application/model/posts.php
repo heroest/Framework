@@ -1,6 +1,5 @@
-<?php 
-
-class posts extends SF_model
+<?php if ( ! defined('root_path')) exit('No direct script access allowed');
+class posts extends \SF_core\SF_model
 {
 
 	public function __construct()

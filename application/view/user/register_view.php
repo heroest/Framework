@@ -12,7 +12,7 @@
 
 <?php endif; ?>
 
-<form class="form-horizontal" role="form" action="<?php echo base_url('user/doregister');?>" method="post">
+<form class="form-horizontal" role="form" action="<?php echo base_url('doregister');?>" method="post">
 	<?php $this->security->csrf_input() ?>
 	<div class="form-group form-group-sm">
 		<label class="col-sm-2 control-label" for="username">Username: </label>

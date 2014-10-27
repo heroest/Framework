@@ -1,5 +1,5 @@
 <?php
-class users extends SF_Model
+class users extends \SF_core\SF_Model
 {
 	public function __construct()
 	{
@@ -11,12 +11,14 @@ class users extends SF_Model
 		$this->filter($username);
 		$this->filter($password);
 
-		$sql = "SELECT 1 FROM users WHERE username='$username' AND password='$password'";
+		$sql = "SELECT password,salt,id FROM users WHERE username='$username' LIMIT 1";
 		$result = $this->db->query($sql);
 		if( !$result ){
 			show_error($this->db->error);
-		} else if($result->num_rows == 1){
-			return True;
+		}
+		$obj = mysqli_fetch_object($result);
+		if( $obj->password === md5($password . $obj->salt) ){
+			return $obj->id;
 		} else {
 			return False;
 		}
@@ -26,9 +28,6 @@ class users extends SF_Model
 	{
 		foreach($user_info as $key=>$value){
 			$this->filter($value);
-			if(strlen($value) >= 20){
-				$this->set_error($key . ' Field is too long.');
-			}
 			$$key = $value;
 		}
 		//check username exist or not
@@ -41,16 +40,55 @@ class users extends SF_Model
 		if(!empty($this->error)){
 			return False;
 		}
-
+		//password-hash
+		$password = md5($password . $salt);
 		//prepare statement for insert
 		$stmt = $this->db->prepare(
-			"INSERT INTO users(username, password, email) VALUES (?,?,?)"
+			"INSERT INTO users(username, password, email, salt) VALUES (?,?,?,?)"
 			);
-		$stmt->bind_param("sss", $username, $password, $email );
+		$stmt->bind_param("ssss", $username, $password, $email, $salt );
 		if(! $stmt->execute() ){
 			show_error($stmt->error);
 		} else {
 			return True;
+		}
+	}
+
+	public function get_id($username)
+	{
+		$sql = "SELECT id FROM users WHERE username='$username' LIMIT 1";
+		$result = $this->db->query($sql);
+		$obj = mysqli_fetch_object($result);
+		return $obj->id;
+	}
+
+	public function delete_user($user_id)
+	{
+		$user_id = $this->filter($user_id);
+		$sql = "DELETE FROM users WHERE id='$user_id'";
+		if(! $this->db->query($sql)){
+			$this->set_error($this->db->error);
+			return False;
+		} else {
+			return True;
+		}
+	}
+
+	public function get_group_setting($user_id)
+	{
+		$user_id = $this->filter($user_id);
+		$sql = "SELECT groups.setting as setting
+				FROM users
+				LEFT JOIN groups
+				ON users.group_id = groups.id
+				WHERE users.id = '$user_id'";
+		$result = $this->db->query($sql);
+		if(! $result){
+			$this->set_error($this->db->error);
+		} else {
+			$obj = mysqli_fetch_object($result);
+			$arr = json_decode($obj->setting, True);
+			return $arr;
 		}
 	}
 

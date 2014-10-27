@@ -1,5 +1,6 @@
 <?php
 
+namespace SF_core;
 class mysql_db extends singleton{
 	
 	protected static $connection;
@@ -8,7 +9,7 @@ class mysql_db extends singleton{
 	
 	public function connect($db_host, $db_username, $db_password, $db_dbname, $db_port = 3306)
 	{
-		self::$connection =  new mysqli($db_host, $db_username, $db_password, $db_dbname, $db_port);
+		self::$connection =  new \mysqli($db_host, $db_username, $db_password, $db_dbname, $db_port);
 		if( ! self::$connection->connect_errno ){
 			return self::$connection;
 		} else {

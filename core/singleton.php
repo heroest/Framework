@@ -1,6 +1,6 @@
 <?php
 
-
+namespace SF_core;
 class singleton
 {
 

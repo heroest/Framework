@@ -10,17 +10,7 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
-.body-main{
-  border-radius: 6px;
-  margin-left:15%;
-  margin-right:15%;
-  padding-top:5%;
-  padding-bottom:5%;
-  padding-left:4%;
-  padding-right:4%;
-  background-color:white;
-  min-height: 60%
-}
+
 article,
 aside,
 details,
@@ -6210,4 +6200,13 @@ button.close {
 }
 
 body { padding-top: 120px; }
+
+.body-main{
+  border-radius: 4px;
+  margin-left:9%;
+  margin-right:9%;
+  margin-bottom:10%;
+  padding:4%;
+  background-color:white;
+}
 /*# sourceMappingURL=bootstrap.css.map */

@@ -1,4 +1,6 @@
-<?php if ( ! defined('root_path')) exit('No direct script access allowed');
+<?php namespace SF_core;
+if ( ! defined('root_path')) exit('No direct script access allowed');
+
 
 class security
 {
@@ -19,8 +21,9 @@ class security
 	}
 
 
-	public function uri_check($uri_arr)
+	public function uri_check($url)
 	{
+		$uri_arr = explode('/', $url);
 		$pattern = '/[^' . $this->conf->permitted_uri_chars . ']/';
 		foreach($uri_arr as $uri){
 			if(preg_match($pattern, $uri)){

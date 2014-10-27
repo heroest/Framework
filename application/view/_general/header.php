@@ -14,7 +14,7 @@
   
 </head>
 <title>
-	<?php echo $page['title']; ?> - PHP Framework
+	<?php echo $page['title']; ?> - Message board
 </title>
 
 
@@ -35,16 +35,15 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-      <?php if($this->session->get('userlogin')): ?>
-        <li><a href="<?php echo base_url('user/logout/' . $this->session->get('logout_salt'))?>">Logout <span class="glyphicon glyphicon-off"></span></a></li>
+      <li><a href="<?php echo base_url('code/viewcode');?>">Code</a></li>
+      <?php if(!$this->session->get('userlogin')): ?>
+        <li><a href="<?php echo base_url('login');?>">Login</a></li>  
+        <li><a href="<?php echo base_url('register');?>">Register</a></li>
+        </ul>
       <?php else: ?>
-        <li><a href="<?php echo base_url('user/register');?>">Register</a></li>
-        <li><a href="<?php echo base_url('user/login');?>">Login</a></li>
-      <?php endif ?>
-        <li><a href="<?php echo base_url('code/viewcode');?>">Code</a></li>
-      </ul>
-      <?php if($this->session->get('userlogin')): ?>
-      <p class="navbar-text">[ Welcome, <?php echo $this->session->get('userlogin');?> ]</p>
+        <li><a href="<?php echo base_url('logout/' . $this->session->get('logout_salt'))?>">Logout <span class="glyphicon glyphicon-off"></span></a></li>
+        </ul>
+        <p class="navbar-text">[ Welcome, <?php echo $this->session->get('userlogin');?> ]</p>
       <?php endif; ?> 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

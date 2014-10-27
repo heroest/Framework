@@ -25,6 +25,7 @@
 
 <?php endif; ?>
 <form action="<?php echo base_url('index/newpost');?>" method="post" role="form" style="max-width:60%">
+	<!-- CSRF -->
 	<?php $this->security->csrf_input(); ?>
 	<h4><span class="label label-primary">Title </span></h4>
 	<input type="text" class="form-control" name="title" placeholder="Title of message"><br />

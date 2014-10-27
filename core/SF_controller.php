@@ -1,5 +1,5 @@
 <?php
-
+namespace SF_core;
 class SF_controller
 {
 	protected $request;

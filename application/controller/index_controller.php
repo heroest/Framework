@@ -1,6 +1,8 @@
-<?php if ( ! defined('root_path')) exit('No direct script access allowed');
+<?php
 
-class index extends SF_controller
+if ( ! defined('root_path')) exit('No direct script access allowed');
+
+class index_controller extends \SF_core\SF_controller
 {
 	public function __construct(){}
 
@@ -10,9 +12,9 @@ class index extends SF_controller
 		$post = new posts();
 		$result = $post->findAll();
 		$data['posts'] = $result;
-		$this->render( 'general/header', $data );
-		$this->render( 'index_view', $data );
-		$this->render( 'general/footer' );
+		$this->render( '_general/header', $data );
+		$this->render( 'index/index_view', $data );
+		$this->render( '_general/footer' );
 	}
 
 	public function newpostAction()
@@ -36,6 +38,8 @@ class index extends SF_controller
 		}
 
 	}
+
+
 }//end class
 
 ?>
