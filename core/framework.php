@@ -1,5 +1,4 @@
 <?php namespace SF_core;
-use \SF_app\Controller;
 if ( ! defined('root_path')) exit('No direct script access allowed');
 
 
