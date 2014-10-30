@@ -44,16 +44,16 @@
 	$sf->load_config($config);
 
 	//load request module
-	$sf->load_core('request', new \SF_core\request());
+	$sf->load_core( 'request', function(){return new \SF_core\request();} );
 
 	//load session module
-	$sf->load_core('session', new \SF_core\session());
+	$sf->load_core( 'session', function(){return new \SF_core\session();} );
 
 	//load security module
-	$sf->load_core('security', new \SF_core\security());
+	$sf->load_core( 'security', function(){return new \SF_core\security();} );
 
 	//load route module
-	$sf->load_core('route', new \SF_core\route($route));
+	$sf->load_core( 'route', function() use ($route){return new \SF_core\route($route);} );
 
 
 	//dispatch

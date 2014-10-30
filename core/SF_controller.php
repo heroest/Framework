@@ -24,10 +24,10 @@ class SF_controller
 
 
 	//load core object
-	public function load_core($cores)
+	public function set_core($cores)
 	{
 		foreach($cores as $key=>$obj){
-			$this->$key = $obj;
+			$this->$key = is_callable($obj) ? call_user_func($obj) : $obj;
 		}
 	}
 
