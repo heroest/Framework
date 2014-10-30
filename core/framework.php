@@ -40,7 +40,7 @@ class framework extends singleton
 	public function get_core( $key )
 	{	
 		if(isset(self::$core[$key]) && !empty(self::$core[$key])){
-			return is_callable(self::$core[$key]) ? call_user_func(self::$core[$key]) : self::$core[$key];
+			return self::$core[$key];
 		} else {
 			return False;
 		}
@@ -85,7 +85,7 @@ class framework extends singleton
 		//load controller class
 		$dispatcher = new $controller();
 		//pass loaded module to controller
-		$dispatcher->set_core(self::$core);
+		$dispatcher->load_core(self::$core);
 
 		//search for action function in controller
 		if( method_exists($dispatcher, $action) ){
