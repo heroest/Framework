@@ -40,7 +40,10 @@ class framework extends singleton
 	public function get_core( $key )
 	{	
 		if(isset(self::$core[$key]) && !empty(self::$core[$key])){
-			return is_callable(self::$core[$key]) ? call_user_func(self::$core[$key]) : self::$core[$key];
+			if(is_callable(self::$core[$key])){
+				self::$core[$key] = call_user_func(self::$core[$key]);
+			}
+			return self::$core[$key];
 		} else {
 			return False;
 		}
