@@ -1,7 +1,7 @@
 <?php
 
 namespace SF_core;
-Interface I_session{
+Interface Interface_session{
 
 	/* ===========================================
    	 * @function: set

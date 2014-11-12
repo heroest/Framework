@@ -1,6 +1,7 @@
-<?php
+<?php namespace SF_core;
+if ( ! defined('root_path')) exit('No direct script access allowed');
 
-namespace SF_core;
+
 class singleton
 {
 
@@ -10,13 +11,15 @@ class singleton
 	private function __construct() {}
 	private function __clone() {}
 
-	public static function getInstance()
+	public static function getInstance($para='')
 	{
 		$obj = get_called_class();
 		if ( ! isset(self::$called_class[$obj]) ) {
-			self::$called_class[$obj] = new $obj();
+			self::$called_class[$obj] = new $obj($para);
 		}
 		return self::$called_class[$obj];
 	}
 
 }
+
+?>

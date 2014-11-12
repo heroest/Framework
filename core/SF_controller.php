@@ -1,35 +1,36 @@
 <?php
 namespace SF_core;
-class SF_controller
+class SF_controller extends container
 {
-	protected $request;
+	private $pages_loaded = array();
 	protected $error='';
 
-	public function __construct(){}	
+	public function __construct()
+	{
+
+	}	
 
 	public function render( $view_name, $view_bag = array() )
 	{
 		//fetch view_bag
-		foreach( $view_bag as $key=>$value  ){
+		foreach( $view_bag as $key=>$value ){
 			$$key = $value;
 		}
-		if( file_exists( viewDir . $view_name . '.php' ) ){
-			include( viewDir . $view_name . '.php' );
+		if(file_exists( viewDir . $view_name . '.php' )){
+
+			if(empty($this->pages_loaded)){
+				ob_start();
+			} else {
+				array_push($this->pages_loaded, $view_name);
+			}
+			include(viewDir . $view_name . '.php');
+
 		} else {
-			echo 'view page: ' , $view_name, '.php is missing';
-			return;
+
+			show_404(viewDir . $view_name, ' view is missing');
+
 		}
-
-	}//end render function
-
-
-	//load core object
-	public function set_core($cores)
-	{
-		foreach($cores as $key=>$obj){
-			$this->$key = is_callable($obj) ? call_user_func($obj) : $obj;
-		}
-	}
+	}//end render
 
 	public function set_error($msg)
 	{

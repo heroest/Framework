@@ -3,25 +3,19 @@ namespace SF_core;
 if ( ! defined('root_path')) exit('No direct script access allowed');
 
 
-class route{
+class route extends container{
 
-	private $request;
-	private $security;
 	private $map;
 
 	public function __construct($route_map){
-		$sf = framework::getInstance();
-		$this->request = $sf->get_core('request');
-		$this->security = $sf->get_core('security');
 		$this->map = $route_map;
 	}
 
 	public function fetch_url(){
 		$query = array();
 		$url = $this->request->get_url();
-		$this->security->uri_check($url);
 
-		if(isset($url) && empty($url)){
+		if(isset($url) and empty($url)){
 			$arr = explode('/', $this->map['Default_Controller']);
 			return array('controller'=>$arr[0], 'action'=>$arr[1], 'query'=>$query);
 		}

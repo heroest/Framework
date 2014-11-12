@@ -39,6 +39,11 @@ class index_controller extends \SF_core\SF_controller
 
 	}
 
+	public function helloworldAction()
+	{
+		echo 'Hello World';
+	}
+
 
 }//end class
 

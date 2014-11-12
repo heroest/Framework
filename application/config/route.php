@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('root_path')) exit('No direct script access allowed');
 //default controller
 $route['Default_Controller'] 	=	'index_controller/indexAction';
 
@@ -14,5 +14,7 @@ $route['logout'] 				=	'user_controller/logoutAction';
 
 $route['index/newpost'] 		=	'index_controller/newpostAction';
 $route['index/postmsg']			= 	'index_controller/postmsgAction';
+
+$route['helloworld']            = 	'index_controller/helloworldAction';
 
 ?>

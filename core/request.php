@@ -1,7 +1,7 @@
 <?php namespace SF_core; 
 if ( ! defined('root_path')) exit('No direct script access allowed');
 
-class request
+class request extends container
 {
 	private $data = array();
 	public function __construct()

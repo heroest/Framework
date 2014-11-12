@@ -4,8 +4,8 @@
 function base_url( $url = '' )
 {
 	//get globals
-	$sf = \SF_core\framework::getInstance();
-	$req = $sf->get_core('request');
+	$sf = \SF_core\container::getInstance();
+	$req = $sf->request;
 
 	$pre = $req->get_globals('SERVER', 'HTTPS') === True 
 		&& strtolower($req->get_globals('SERVER', 'HTTPS')) !== 'off' ? 'https://' : 'http://';

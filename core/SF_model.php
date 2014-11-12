@@ -8,23 +8,8 @@ class SF_model{
 
 	public function __construct()
 	{
-		//load framework core
-		$sf = framework::getInstance();
-		
-		if( ! $sf->get_core('sql') ){
-			$database = $sf->get_config('database');
-			$mysql = mysql_db::getInstance();
-			$this->db = $mysql->connect(
-				$database->host,
-				$database->username,
-				$database->password,
-				$database->db_name,
-				$database->port
-			);
-			$sf->load_core('sql', $this->db);
-		} else {
-			$this->db = $sf->get_core('sql');
-		}
+		$container = container::getInstance();
+		$this->db = $container->db;
 	}
 
 	public function set_error($msg)
@@ -35,8 +20,7 @@ class SF_model{
 	protected function filter($string)
 	{
 		$string = $this->db->real_escape_string($string);
-		$string = htmlentities($string, ENT_QUOTES, 'UTF-8');
-		return $string;
+		return htmlentities($string, ENT_QUOTES, 'UTF-8');
 	}
 
 }//end MY_model
