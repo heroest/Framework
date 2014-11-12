@@ -12,10 +12,12 @@ class framework extends container
 		//run security check
 		$this->security->run_check();
 
-		$arr = $this->route->fetch_url();
+		list($controller, $action, $query_array) = $this->route->fetch_url();
+		/*
 		$controller = $arr['controller'];
 		$action = $arr['action'];
 		$query_array = $arr['query'];
+		*/
 		
 
 		//search for controller file and load it

@@ -1,6 +1,6 @@
-<?php
+<?php namespace SF_core; 
+if ( ! defined('root_path')) exit('No direct script access allowed');
 
-namespace SF_core;
 class db_mysql extends singleton{
 	
 	protected static $connection;

@@ -41,7 +41,8 @@ class index_controller extends \SF_core\SF_controller
 
 	public function helloworldAction()
 	{
-		echo 'Hello World';
+		echo 'Hello World <br />';
+		$this->helloworld->say_hello();
 	}
 
 

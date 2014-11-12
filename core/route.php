@@ -17,7 +17,9 @@ class route extends container{
 
 		if(isset($url) and empty($url)){
 			$arr = explode('/', $this->map['Default_Controller']);
-			return array('controller'=>$arr[0], 'action'=>$arr[1], 'query'=>$query);
+
+			//array($controller, $action, $query_array)
+			return array($arr[0], $arr[1], $query);
 		}
 
 		foreach($this->map as $uri=>$dispatch){
@@ -26,7 +28,9 @@ class route extends container{
 				$req = explode('/', $url);
 				$dis = explode('/', $dispatch);
 				$query = array_slice($req, count($uri_array));
-				return array('controller'=>$dis[0], 'action'=>$dis[1], 'query'=>$query);
+
+				//array($controller, $action, $query_array)
+				return array($dis[0], $dis[1], $query);
 			}
 		}
 		show_404('[ ' . base_url() . $url . ' ] is not found on the server');

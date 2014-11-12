@@ -13,6 +13,7 @@
 	define('app_path', root_path . '/application/');
 	define('configDir', app_path . 'config/');
 	define('controllerDir', app_path . 'controller/');
+	define('pluginDir', app_path . 'plugin/');
 	define('modelDir', app_path . 'model/');
 	define('viewDir', app_path . 'view/');
 	
@@ -38,8 +39,7 @@
 				require_once(interface_path . $file . '.php');
 			} else if( strpos($file, 'db_') === 0 ){
 				require_once(db_drive_path . $file . '.php');
-			}
-			else {
+			} else {
 				require_once(core_path. $file . '.php');
 			}
 

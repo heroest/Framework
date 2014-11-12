@@ -33,8 +33,14 @@
 	$config['security']['csrf_token_name'] = 'sf_csrf_token';
 	$config['security']['csrf_salt'] = '0kVEWT6fta116x16a57MAiHQpYQ6fZhI'; //Replace with your own salt
 	$config['security']['csrf_token_duration'] = 3600; //in seconds
-	$config['security']['enable_csrf_auto_check'] = False;
+	$config['security']['enable_csrf_auto_check'] = True;
 
 
+	/* 
+	* ===============================================================
+	* HelloWorld plugin setting
+	* ===============================================================
+	*/
+	$config['helloworld']['name'] = 'Neosteam';
 
 ?>
