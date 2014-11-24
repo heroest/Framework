@@ -1,5 +1,5 @@
 <?php
-class users extends \SF_core\SF_Model
+class users extends \SF_core\SF_model
 {
 	public function __construct()
 	{
@@ -8,8 +8,8 @@ class users extends \SF_core\SF_Model
 
 	public function login($username, $password)
 	{
-		$this->filter($username);
-		$this->filter($password);
+		$username = $this->filter($username);
+		$password = $this->filter($password);
 
 		$sql = "SELECT password,salt,id FROM users WHERE username='$username' LIMIT 1";
 		$result = $this->db->query($sql);
@@ -17,7 +17,7 @@ class users extends \SF_core\SF_Model
 			show_error($this->db->error);
 		}
 		$obj = mysqli_fetch_object($result);
-		if( $obj->password === md5($password . $obj->salt) ){
+		if( ($obj->password) === md5($password . $obj->salt) ){
 			return $obj->id;
 		} else {
 			return False;
@@ -27,7 +27,7 @@ class users extends \SF_core\SF_Model
 	public function regsiter($user_info)
 	{
 		foreach($user_info as $key=>$value){
-			$this->filter($value);
+			$value = $this->filter($value);
 			$$key = $value;
 		}
 		//check username exist or not

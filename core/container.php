@@ -28,6 +28,7 @@ class container extends singleton
 				self::$_storage[$key] = $key::getInstance();
 			}
 		}
+		
 		if(is_callable(self::$_storage[$key])){
 			self::$_storage[$key] = call_user_func(self::$_storage[$key]);
 		}

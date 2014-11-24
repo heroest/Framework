@@ -9,16 +9,13 @@ class framework extends container
 	//dispatch
 	public function dispatch()
 	{
+		//prepare output buffer
+		ob_start();
+
 		//run security check
 		$this->security->run_check();
 
-		list($controller, $action, $query_array) = $this->route->fetch_url();
-		/*
-		$controller = $arr['controller'];
-		$action = $arr['action'];
-		$query_array = $arr['query'];
-		*/
-		
+		list($controller, $action, $query_array) = $this->route->fetch_url();		
 
 		//search for controller file and load it
 		$file_path = controllerDir . $controller . '.php';
@@ -27,6 +24,7 @@ class framework extends container
 		} else {
 			require_once($file_path);
 		}
+
 		//load controller class
 		$dispatcher = $controller::getInstance();
 
@@ -42,6 +40,7 @@ class framework extends container
     	ob_end_clean();
     	return $output;
 	}//end dispatch function
+	
 }//end framework class
 
 

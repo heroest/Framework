@@ -2,7 +2,7 @@
 
 if ( ! defined('root_path')) exit('No direct script access allowed');
 
-class index_controller extends \SF_core\SF_controller
+class index_controller extends \SF_extend\MY_controller
 {
 	public function __construct(){}
 

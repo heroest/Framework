@@ -2,7 +2,6 @@
 namespace SF_core;
 class SF_controller extends container
 {
-	private $pages_loaded = array();
 	protected $error='';
 
 	public function __construct()
@@ -18,11 +17,6 @@ class SF_controller extends container
 		}
 		if(file_exists( viewDir . $view_name . '.php' )){
 
-			if(empty($this->pages_loaded)){
-				ob_start();
-			} else {
-				array_push($this->pages_loaded, $view_name);
-			}
 			include(viewDir . $view_name . '.php');
 
 		} else {

@@ -14,6 +14,7 @@
 	define('configDir', app_path . 'config/');
 	define('controllerDir', app_path . 'controller/');
 	define('pluginDir', app_path . 'plugin/');
+	define('extendDir', app_path . 'extend/');
 	define('modelDir', app_path . 'model/');
 	define('viewDir', app_path . 'view/');
 	
@@ -31,10 +32,14 @@
 	function __autoload($className)
 	{
 		$arr = explode('\\', $className);
+		$file = end($arr);
 
-		if($arr[0] == 'SF_core'){
+		if ($arr[0] == 'SF_extend'){
+			//loading extend class file
+			require_once(extendDir . $file . '.php');
+
+		} else if($arr[0] == 'SF_core'){
 			//if core module loading
-			$file = end($arr);
 			if( strpos($file, 'Interface_') === 0 ){
 				require_once(interface_path . $file . '.php');
 			} else if( strpos($file, 'db_') === 0 ){
@@ -44,8 +49,11 @@
 			}
 
 		} else if( file_exists(modelDir . $className . '.php') ){
+			//load model file
 			require_once(modelDir . $className . '.php');
+
 		} else {
+			//file is missing
 			show_404($className . '.php', ' model class file missing');
 		}
 	}
@@ -54,7 +62,7 @@
 	$container = \SF_core\container::getInstance();
 	$container->load_config($config);
 
-	//load module into container
+	//load core module into container
 	$container->request = function(){ return \SF_core\request::getInstance(); };
 	$container->route = function()use($route){ return \SF_core\route::getInstance($route); };
 	$container->session = function(){ return \SF_core\session::getInstance(); };

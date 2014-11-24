@@ -4,15 +4,15 @@ if ( ! defined('root_path')) exit('No direct script access allowed');
 
 class security extends container
 {
-	private $conf;
+	private $config;
 	public $csrf_key;
 	public $csrf_token_name;
 	
 	public function __construct()
 	{
-		$this->conf = $this->get_config('security');
-		$this->csrf_key = md5(uniqid(true) . $this->conf['csrf_salt']);
-		$this->csrf_token_name = $this->conf['csrf_token_name'];
+		$this->config = $this->get_config('security');
+		$this->csrf_key = md5(uniqid(true) . $this->config['csrf_salt']);
+		$this->csrf_token_name = $this->config['csrf_token_name'];
 	}
 
 	public function run_check()
@@ -21,7 +21,7 @@ class security extends container
 		$this->uri_check($this->request->get_url());
 
 		//csrf auto check
-		if($this->request->get_request_type() == 'post' && $this->conf['enable_csrf_auto_check'] === True){
+		if($this->request->get_request_type() == 'post' && $this->config['enable_csrf_auto_check'] === True){
 			$this->csrf_check();
 		}
 	}
@@ -30,7 +30,7 @@ class security extends container
 	private function uri_check($url)
 	{
 		$uri_arr = explode('/', $url);
-		$pattern = '/[^' . $this->conf['permitted_uri_chars'] . ']/';
+		$pattern = '/[^' . $this->config['permitted_uri_chars'] . ']/';
 		foreach($uri_arr as $uri){
 			if(preg_match($pattern, $uri)){
 			//if any character other than permitted_uri_chars
@@ -43,21 +43,21 @@ class security extends container
 	private function new_csrf_token()
 	{
 		$this->session->set(array( 
-			$this->conf['csrf_token_name'] => $this->csrf_key,
-			'csrf_token_expires' => time() + $this->conf['csrf_token_duration']
+			$this->config['csrf_token_name'] => $this->csrf_key,
+			'csrf_token_expires' => time() + $this->config['csrf_token_duration']
 		 ));
 		return array(
-			'token_name' => $this->conf['csrf_token_name'],
+			'token_name' => $this->config['csrf_token_name'],
 			'key' => $this->csrf_key
 			);
 	}
 
 	public function csrf_check($csrf_check = '')
 	{
-		$csrf_key = $this->session->get($this->conf['csrf_token_name']);
+		$csrf_key = $this->session->get($this->config['csrf_token_name']);
 		$csrf_expires = $this->session->get('csrf_token_expires');
 		if(empty($csrf_check)){
-			$csrf_check = $this->request->post($this->conf['csrf_token_name']);
+			$csrf_check = $this->request->post($this->config['csrf_token_name']);
 		}
 		if($csrf_expires < time()){
 			show_error('<strong>CSRF</strong>&nbsp;CSRF Token expires');
@@ -77,7 +77,7 @@ class security extends container
 	public function get_csrf_token()
 	{
 		return array(
-			'token_name' => $this->conf['csrf_token_name'],
+			'token_name' => $this->config['csrf_token_name'],
 			'key' => $this->csrf_key
 			);
 	}
