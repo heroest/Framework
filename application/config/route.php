@@ -1,19 +1,11 @@
-<?php if ( ! defined('root_path')) exit('No direct script access allowed');
-//default controller
-$route['Default_Controller'] = 'index_controller/indexAction';
+<?php if ( ! defined('framework_name')) exit('No direct script access allowed');
+$route = array();
+
+$route['path']							   = 'index_controller/pathAction';
+$route['game']							   = 'game_controller/indexAction';
+$route['test/(:num)/(:num)/(:num)/(:any)'] = 'index_controller/testAction';
+$route['_Default']                         = 'index_controller/indexAction';
 
 
-
-$route['code/viewcode'] = 'code_controller/viewcodeAction';
-
-$route['login'] = 'user_controller/loginAction';
-$route['dologin'] =	'user_controller/dologinAction';
-$route['register'] = 'user_controller/registerAction';
-$route['doregister'] = 'user_controller/doregisterAction';
-$route['logout'] = 'user_controller/logoutAction';
-
-$route['index/newpost'] = 'index_controller/newpostAction';
-$route['index/postmsg']	= 'index_controller/postmsgAction';
-$route['helloworld'] = 'index_controller/helloworldAction';
-
+return $route;
 ?>

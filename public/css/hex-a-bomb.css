@@ -1,0 +1,53 @@
+div.hex{
+	float: left;
+	padding: 1px;
+	margin-bottom: -31px;
+	cursor:pointer;
+	-moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+div.hex-head {
+	width: 0;
+	border-bottom: 30px solid #33CC33;
+	border-left:   52px solid transparent;
+	border-right:  52px solid transparent;
+}
+div.hex-body {
+	width: 	104px;
+	height: 60px;
+	background-color: #33CC33;
+	text-align: center;
+	line-height:52px;
+}
+div.hex-foot {
+	width: 0;
+	border-top:   30px solid #33CC33;
+	border-left:  52px solid transparent;
+	border-right: 52px solid transparent;
+}
+
+div.hex-row{
+	clear: left;
+}
+
+
+.hex-row:nth-child(1){
+	margin-left: 106px;
+}
+
+.hex-row:nth-child(2){
+	margin-left: 53px;
+}
+
+.hex-row:nth-child(4){
+	margin-left:53px;
+}
+
+.hex-row:nth-child(5){
+	margin-left:106px;
+	padding-bottom: 20%
+}

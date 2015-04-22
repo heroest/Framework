@@ -1,0 +1,19 @@
+body{
+	background-color: #DADADA;
+	margin:5% 10%;
+}
+
+div.body {
+	background-color: #F5F9CC;
+	padding: 2% 5%;
+	box-shadow: 2px 2px 35px #888888;
+}
+
+#message {
+	overflow: auto;
+	max-height: 400px;
+}
+
+#clear {
+	text-align: right;
+}

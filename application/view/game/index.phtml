@@ -1,0 +1,111 @@
+
+<body>
+<div class="body container-fluid">
+<div class="row">
+
+
+
+<div class="well well-sm" style="overflow:auto">
+	<div class="col-xs-3">
+		<input type="checkbox" class="swap" data-on-text="Swap" data-off-text="NoSwap" data-on-color='success'/>
+	</div>
+	<div class="col-xs-3"><h4>
+		Moves left: <span class="label label-default moves">9999</span></h4>
+	</div>
+	<div class="col-xs-3">
+		<button class="btn btn-success" id="clear">Clear Select</button>
+	</div>
+	<div class="col-xs-3">
+		<button class="btn btn-primary" id="input">Input Map</button>
+	</div>
+</div>
+
+<div id="game-board" class="well"></div>
+
+
+
+</div><!-- /row -->
+</div><!-- /container-fluid -->
+
+
+</body>
+
+
+<div class="modal fade" id="modal-input">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title">Map Data:</h4>
+</div>
+<div class="modal-body">
+	<textarea class="form-control" id="map">{"map":[3,2,1,2,"x",2,2,1,2,3,"x",3,2,"x",2,2,3,2,1], "move":10}</textarea>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<button type="button" class="btn btn-success" id="play">Play!</button>
+</div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!-- bootstrap Switch -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js'></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css">
+<!-- /bootstrap switch -->
+
+<!-- hex-a-bomb -->
+<script src="/js/hex-a-bomb.js"></script>
+<link rel="stylesheet" href="/css/hex-a-bomb.css">
+<!-- /hex-a-bomb -->
+
+<!-- JQuery UI -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
+<script async src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<!-- /JQuery UI -->
+
+<script>
+
+var swap;
+var move = 99;
+var selected = [];
+var color_idle     = '#33CC33';
+var color_selected = '#FF0000';
+var color_disabled = '#808080';
+var color_zero     = '#1F7AE0';
+var color_hover    = '#9CFF9C';
+var test = '{"map":[1, 2, 1, 2, 3, 3, 2, "x", "x", 1, "x", "x", 2, 3, 3, 2, 1, 2, 1], "move":10}';
+
+$(document).ready(function(){
+	
+	$("button#input").click(function(){
+		$("#modal-input").modal('show');
+	});
+
+	$("button#play").click(function(){
+		data = $("textarea#map").text();
+		data_input(data);
+		$("#modal-input").modal('hide');
+	});
+
+	swap = $("input.swap");
+	swap.bootstrapSwitch();
+	draw_board();
+	data_input(test);
+
+	swap.on('switchChange.bootstrapSwitch', function(event, state) {
+	  if(state == true) reset_selected();
+	  update_board();
+	});
+
+	$("button#clear").click(function(){
+		reset_selected();
+		update_board();
+	});
+
+
+});
+
+
+</script>

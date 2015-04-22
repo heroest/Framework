@@ -1,0 +1,34 @@
+.device {
+	background-color: red;
+	width: 100px;
+	height: 100px;
+	float:left;
+	margin-right:5%
+}
+
+
+
+.sub {
+	background-color: green;
+	height: 75px;
+	width: 75px;
+	float:left;
+	margin-right: 5%
+}
+
+
+p{
+	clear:both;
+}
+
+.path {
+
+	clear:both;
+	background-color: #C0C0C0;
+	height: 100px;
+	
+}
+
+.route {
+	display: none;
+}
