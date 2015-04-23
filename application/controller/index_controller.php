@@ -14,9 +14,16 @@ class index_controller extends AbstractController
 		$data['footer'] = $footer;
 		$data['body'] = $body;
 
+		$this->cache->set('name', 'neo');
+		$this->session->set(array('user'=>'neo'));
+
+		var_dump($this->session->get('user'));
+		var_dump($this->cache->has('name'));
+		var_dump($this->cache->has('abc'));
 
 		$this->render('layout/header', $data);
 		$this->render('index/welcome', $data);
+
 	}
 
 

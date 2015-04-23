@@ -9,7 +9,7 @@ class game_controller extends AbstractController
 	{
 		$title = 'Hex-a-bomb';
 		$viewArray['title'] = $title;
-
+		$this->session;
 		$this->render('layout/header', $viewArray);
 		$this->render('game/index',	   $viewArray);
 	}

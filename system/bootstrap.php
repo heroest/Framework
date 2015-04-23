@@ -55,9 +55,15 @@ $di->set('router', function() {
 	return new lightning\system\core\router();
 });
 
+$di->set('cache', function() {
+	$cache = new lightning\system\core\cache\cache();
+	$cache->set_handler( new lightning\system\core\cache\driver\cache_apc() );
+	return $cache;
+});
+
 $di->set('session', function() {
 	$session = new lightning\system\core\session\session();
-	$session->start();
+	$session->start(null);
 	return $session;
 });
 

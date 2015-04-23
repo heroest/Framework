@@ -17,7 +17,7 @@ $di->set('myPlugin', function(){
 //override
 $di->override('session', function(){
 	$session = new lightning\application\extend\session_event_emitter();
-	$session->start();
+	$session->start(null);
 	return $session;
 });
 */

@@ -12,21 +12,27 @@ class session extends SystemClass
 	public function __construct()
 	{
 		$this->config = $this->get_config('session');
-		$type = $this->config['type'];
-		
-		if('default' !== $type or !empty($type)) {
-			$session = "lightning\system\core\session\driver\session_$type";
-			$handler = new $session();
-			session_set_save_handler($handler, True);
-		}		
 	}
 
-	public function start()
+	public function start(\SessionHandlerInterface $handler = null)
 	{
-		session_start();
-		if(! isset($_SESSION['expires']) or time() > $_SESSION['expires']) {
-			$_SESSION = array();
+		if(! is_null($handler)) {
+			session_set_save_handler($handler, True);
+		} else {
+			switch($this->config['type']) {
+				case 'db':
+					session_set_save_handler(new \lightning\system\core\session\driver\session_db(), True);
+					break;
+				case 'apc':
+					session_set_save_handler(new \lightning\system\core\session\driver\session_apc(), True);
+					break;
+			}
 		}
+
+		session_start();
+		session_regenerate_id();
+		
+		if(! isset($_SESSION['expires']) or time() > $_SESSION['expires']) $_SESSION = array();
 		$this->extend_session();
 	}
 

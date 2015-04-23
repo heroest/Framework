@@ -6,7 +6,7 @@ $config = array();
 * website global setting
 * ===============================================================
 */
-$config['website']['hash_algorithm'] 	= 'md5'; //for custom_hash();
+$config['website']['hash_algorithm'] 	= 'md5'; //for Chash();
 $config['website']['show_error_stack'] 	= True;
 
 
@@ -15,10 +15,10 @@ $config['website']['show_error_stack'] 	= True;
 * session setting
 * ===============================================================
 */
-$config['session']['type']		 = 'db'; 			//'db' or 'default'
-$config['session']['table_name'] = 'lightning_session'; //if use database to store session
-$config['session']['duration'] 	 = '7200'; 				//in seconds
-
+$config['session']['type']				= 'apc';            //'db', 'apc' or 'default'
+$config['session']['duration']			= '7200'; 				//in seconds
+$config['session']['db_table_name']		= 'lightning_session';	//when use db
+$config['session']['key_name_prefix'] 	= 'lightning_session';  //when use memory-storage
 /* 
 * ===============================================================
 * Database setting
@@ -60,7 +60,12 @@ $config['security']['security_header']	= array(
 											);
 
 
-
+/* 
+* ===============================================================
+* cache setting
+* ===============================================================
+*/
+$config['cache']['key_name_prefix'] = 'lightning_storage';
 
 return $config;
 ?>

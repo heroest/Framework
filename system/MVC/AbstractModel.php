@@ -2,14 +2,14 @@
 namespace lightning\system\MVC;
 use lightning\system\core\SystemClass;
 
-class AbstractModel 
+class AbstractModel extends SystemClass
 {
 
 	protected static $db;
 
 	public function __construct()
 	{
-		self::$db = SystemClass::getInstance()->db;
+		self::$db = $this->db;
 	}
 
 	protected function custom_fetchRow($sql)
@@ -28,7 +28,6 @@ class AbstractModel
 	protected function custom_fetchAll($sql)
 	{
 		try {
-			var_dump($sql);
 			$stmt = self::$db->prepare($sql);
 			$stmt->execute();
 			$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -47,7 +46,7 @@ class AbstractModel
 				$arr[] = "$key=$val";
 			}
 			$set_stmt = implode(",", $arr);
-			$sql = "UPDATE $table_name SET $set_stmt WHERE $where";
+			$sql = "UPDATE {$table_name} SET {$set_stmt} WHERE {$where}";
 			$stmt = self::$db->prepare($sql);
 			$stmt->execute();
 			return $stmt->rowCount();
@@ -76,7 +75,7 @@ class AbstractModel
 			}
 
 			$key_stmt 	= "(" . implode(",", $keys) . ")";
-			$sql = "INSERT INTO $table_name $key_stmt VALUES $value_stmt";
+			$sql = "INSERT INTO {$table_name} {$key_stmt} VALUES {$value_stmt}";
 			$stmt = self::$db->prepare($sql);
 			$stmt->execute();
 			return $stmt->rowCount();
@@ -90,7 +89,7 @@ class AbstractModel
 	{
 		try {
 			$stmt = self::$db->prepare($sql);
-			return $stmt->execute($param_arr) ? True : False;
+			return $stmt->execute() ? True : False;
 		} catch (\PDOException $e) {
 			$msg = $e->getMessage();
 			show_error("Error in AbstractModel->custom_query($sql): $msg");
