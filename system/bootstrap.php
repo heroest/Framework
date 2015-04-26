@@ -32,6 +32,7 @@ function lightning_autoload($class)
 		array_shift($class_arr);
 		$file_path = root_path . implode('/', $class_arr) . '.php';
 		if(! file_exists($file_path)) {
+			$file_path = Cpath($file_path);
 			show_error("Autoloading: $class, File does not exist: $file_path");
 		} else {
 			require_once($file_path);

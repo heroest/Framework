@@ -1,5 +1,5 @@
 <?php
-$st = microtime();
+define('_start', microtime());
 error_reporting(E_ALL);
 
 header('Content-Type: text/html; charset=utf-8');
@@ -25,6 +25,4 @@ $di->override('session', function(){
 
 $app = new lightning\system\MVC\application($di);
 echo $app->handle();
-$used = microtime() - $st;
-echo "<p>{$used} sec</p>";
 ?>

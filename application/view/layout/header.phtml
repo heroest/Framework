@@ -1,6 +1,6 @@
 <html>
 <head>
-<title><?php echo $title ?></title>
+<title><?php echo $title ?> - Lightning</title>
 <!-- Javascript Library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script async src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -14,3 +14,50 @@
 
 
 </head>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+<div class="container-fluid">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		</button>
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	<ul class="nav navbar-nav navbar-left">
+
+		<!-- home -->
+		<li class='nav-element'>
+			<a href='/'>
+				<span class='glyphicon glyphicon-home'></span><br />
+				Home
+			</a>
+		</li>
+
+		<!-- game -->
+		<li class='nav-element'>
+			<a href='/game'>
+				<span class='glyphicon glyphicon-send'></span><br />
+				Game
+			</a>
+		</li>
+
+		<!-- path -->
+		<li class='nav-element'>
+			<a href='/path'>
+				<span class='glyphicon glyphicon-fire'></span><br />
+				Path
+			</a>
+		</li>
+
+	</ul>
+
+	<ul class="nav navbar-nav navbar-right">
+		<?php echo $this->user_menu->draw() ?>
+	</ul>
+	
+	</div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>
+
+<body>

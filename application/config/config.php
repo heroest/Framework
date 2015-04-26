@@ -15,7 +15,7 @@ $config['website']['show_error_stack'] 	= True;
 * session setting
 * ===============================================================
 */
-$config['session']['type']				= 'apc';            //'db', 'apc' or 'default'
+$config['session']['type']				= 'apc';            	//'db', 'apc' or 'default'
 $config['session']['duration']			= '7200'; 				//in seconds
 $config['session']['db_table_name']		= 'lightning_session';	//when use db
 $config['session']['key_name_prefix'] 	= 'lightning_session';  //when use memory-storage

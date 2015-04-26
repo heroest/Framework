@@ -16,7 +16,7 @@ class application extends SystemClass
 
 	public function handle()
 	{
-		$this->eventManager->emit('before_Parse_URL');
+		$this->eventManager->emit('before_parse_URL');
 		$url = $this->request->getQuery('_url');
 		list($controller, $action, $param_arr) = $this->router->parse($url);
 		return $this->dispatch($controller, $action, $param_arr);
@@ -29,7 +29,7 @@ class application extends SystemClass
 		$controller_class = "lightning\application\controller\\$controller";
 		$dispatcher = new $controller_class();
 
-		$this->eventManager->emit('before_Controller_Execution',
+		$this->eventManager->emit('before_controller_execution',
 								array(
 										'controller' => $controller,
 										'action'	 => $action,
@@ -41,7 +41,7 @@ class application extends SystemClass
 			show_error("Error in application->Dispatch(): [$action] does not exists in [$controller]");
 		}
 
-		$this->eventManager->emit('before_Get_Output');
+		$this->eventManager->emit('before_get_output');
 		$page = ob_get_contents();
 		ob_end_clean();
 		return $page;

@@ -30,8 +30,7 @@ function show_error($message)
 			$file 	= empty($error['file']) 	? '' : $error['file'];
 			$class 	= empty($error['class'])	? '' : $error['class'];
 			if(! empty($file)) {
-				$root = root_path;
-				$file = substr($file, strlen($root));
+				$file = Cpath($file);
 			}
 			$tbody .= "
 					<tr>
@@ -49,15 +48,13 @@ function show_error($message)
 		$table = '[Hidden]';
 	}
 
-	include_once(view_path . "error/500.phtml");
-	exit();
+	exit(include_once(view_path . "error/500.phtml"));
 }
 
 function show_404($message)
 {
 	header("HTTP/1.0 404 Not Found");
-	include_once(view_path . "error/404.phtml");
-	exit();
+	exit(include_once(view_path . "error/404.phtml"));
 }
 
 function redirect($url)
@@ -111,13 +108,13 @@ function Crandom($type, $len=10)
 
 function Cmatch($a, $b)
 {
-	$salt = Chash(CRandom('all', 8));
-	return (count($a) === count($b)) and (Chash($a, $salt) === Chash($b, $salt));
+	return (count($a) === count($b)) and (md5($a) === md5($b));
 }
 
-function vd($obj)
+function Cpath($path)
 {
-	var_dump($obj);
+	$root = root_path;
+	return substr($path, strlen($root) - 1);
 }
 
 //array_column for php < 5.5

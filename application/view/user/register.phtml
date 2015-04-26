@@ -1,0 +1,90 @@
+<div class="user-block">
+
+<?php if(isset($error)): ?>
+	<div class="alert alert-danger" role="alert"><?php echo $error; ?></div>
+<?php endif; ?>
+
+<form class="form-horizontal" method="post" action="">
+	<?php echo $this->security->csrf_input(); ?>
+
+	<div class="form-group">
+		<label for="username" class="col-sm-3 control-label">Username: </label>
+		<div class="col-sm-9">
+		  <input type="text" class="form-control" id="username" name="username" placeholder="Username" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="password" class="col-sm-3 control-label">Password: </label>
+		<div class="col-sm-9">
+		  <input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="verify" class="col-sm-3 control-label">Verify: </label>
+		<div class="col-sm-9">
+		  <input type="password" class="form-control" id="verify" placeholder="Verify" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="email" class="col-sm-3 control-label">Email: </label>
+		<div class="col-sm-9">
+		  <input type="email" class="form-control" id="email" name="email" placeholder="Email" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-3 col-sm-9">
+		<button type="submit" class="btn btn-primary register">Register</button>
+		</div>
+	</div>
+</form>
+
+
+</div><!-- /user-block -->
+
+<script src="/js/user.js"></script>
+<script>
+$(document).ready(function(){
+	var btn_register = $('button.register');
+
+	$("body")
+		.css('background-image', "url('/img/user-bg.jpg')")
+		.css('background-repeat', 'no-repeat')
+		.css('background-size', '100% 100%');
+
+	$("input#verify").keyup(function(){
+		node = $(this);
+		pass = $("input#password").val();
+		if(node.val() !== pass) {
+			input_help_text(node, 'verify-block', 'Password does not match');
+			input_help_state(node, 'error');
+			btn_disable(btn_register);
+		} else {
+			input_help_text_clear(node);
+			input_help_state(node, 'success');
+			btn_enable(btn_register);
+		}
+	});
+
+	btn_register.click(function(event){
+		var all_set = true;
+		event.preventDefault();
+		form = $(this).closest("form");
+		form.find("input.form-control").each(function(){
+			node = $(this);
+			if(node.val() == '') {
+				all_set = false;
+				mark = node.attr('id') + '-helpBlock';
+				input_help_text(node, mark, 'This field can not be empty');
+				input_help_state(node, 'error');
+			} else {
+				input_help_state(node, 'success');
+			}
+		});
+		if(all_set) form.submit();
+	});
+});
+</script>

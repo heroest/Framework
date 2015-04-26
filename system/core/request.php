@@ -45,9 +45,18 @@ class request extends SystemClass
 		}
 	}
 
-	public function getRequestMethod()
+	public function get_request_method()
 	{
 		return strtolower($this->data['SERVER']['REQUEST_METHOD']);
+	}
+
+	public function get_ip()
+	{
+		$server = $this->data['SERVER'];
+		$ip = isset($server['REMOTE_ADDR']) ? $server['REMOTE_ADDR'] : 
+			(isset($server['HTTP_CLIENT_IP']) ? $server['HTTP_CLIENT_IP'] : 
+			(isset($server['HTTP_X_FORWARDED_FOR']) ? $server['HTTP_X_FORWARDED_FOR'] : ''));
+		return $ip;
 	}
 
 	public function getGlobal($global, $key = '') 

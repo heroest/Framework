@@ -1,19 +1,44 @@
+html{
+    height: 100%;
+    margin: 0px;
+    position:relative;
+}
+
 body{
 	background-color: #DADADA;
-	margin:5% 10%;
+	padding-top: 70px;
+	height:100%;
 }
 
 div.body {
+	margin: 3% 4%;
+	padding: 2% 2%;
 	background-color: #F5F9CC;
-	padding: 2% 5%;
-	box-shadow: 2px 2px 35px #888888;
+	box-shadow: 5px 5px 25px #888888;
 }
 
-#message {
-	overflow: auto;
-	max-height: 400px;
+div.user-block {
+	margin:5% 30%;
+	background-color: white;
+	padding:2% 2%;
+	opacity: 0.5;
+	box-shadow: 5px 5px 25px #888888;
 }
 
-#clear {
-	text-align: right;
+div.user-block:hover {
+	opacity: 0.8;
 }
+
+.nav-element {
+	text-align: center;
+}
+
+.footer {
+	background-color: white;
+	margin-bottom:0px;
+	position:fixed;
+	bottom:0;
+	width:100%;
+}
+
+

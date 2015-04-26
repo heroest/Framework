@@ -48,7 +48,7 @@ class security extends SystemClass
 		$this->csrf = $csrf;
 	}
 
-	public function csrf_intput($renew = false)
+	public function csrf_input($renew = false)
 	{
 		if(empty($this->csrf) or $renew == True) {
 			$this->csrf_generate();
@@ -79,9 +79,12 @@ class security extends SystemClass
 
 	public function csrf_validate_post()
 	{
-		$expires = '';
 		$csrf    = $this->session->get('CSRF');
+		$csrf    = empty($csrf) ? array() : $csrf;
+		$expires = '';
 		$index   = '';
+		$match   = false;
+		
 		foreach($csrf as $name => $obj) {
 			$index   = $name;
 			$expires = $obj['expires'];
@@ -110,6 +113,7 @@ class security extends SystemClass
 	public function csrf_validate($match)
 	{
 		$csrf = $this->session->get('CSRF');
+		$csrf = empty($csrf) ? array() : $csrf;
 		$flag = False;
 		foreach($csrf as $name => $obj) {
 			$index   = $name;
@@ -127,7 +131,7 @@ class security extends SystemClass
 			$this->remove_csrf($index);
 			show_error("Error in security->csrf_validate_get(): CSRF-Token is expired");
 
-		} else {
+		} else if($flag){
 			$this->remove_csrf($index);
 		}
 	}
