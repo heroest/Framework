@@ -4,7 +4,7 @@ use lightning\system\core\SystemClass;
 use lightning\system\core\session\session_interface;
 
 if ( ! defined('framework_name')) exit('No direct script access allowed');
-class session extends SystemClass 
+class session_adapter extends SystemClass 
 {
 
 	private $config;
@@ -65,6 +65,17 @@ class session extends SystemClass
 		unset($_SESSION[$key]);
 	}
 
+	public function pop($key)
+	{
+		if($this->has($key)) {
+			$ret = $this->get($key);
+			$this->delete($key);
+			return $ret;
+		} else {
+			return False;
+		}
+	}
+
 	public function destory()
 	{
 		session_destroy();
@@ -72,8 +83,7 @@ class session extends SystemClass
 
 	private function extend_session()
 	{
-		$duration = $this->config['duration'];
-		$_SESSION['expires'] = (time() + $duration);
+		$_SESSION['expires'] = (time() + $this->config['duration']);
 	}
 
 

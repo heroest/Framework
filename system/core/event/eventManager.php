@@ -12,14 +12,15 @@ class eventManager extends SystemClass
 		$this->attachDI($eventDI);
 	}
 
-	public function emit($event, $param_arr=array())
+	public function emit($event)
 	{
 		if(isset($this->listener[$event])) {
 			foreach($this->listener[$event] as $function)
 			{
-				call_user_func_array($function, $param_arr);
+				call_user_func_array($function, array($this->application));
 			}
 		}
+		return $this;
 	}
 
 	public function attachDI($eventDI)

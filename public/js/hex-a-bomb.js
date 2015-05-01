@@ -66,6 +66,7 @@ function data_input(json_data)
 	data = JSON.parse(json_data);
 	map  = data['map'];
 	move = data['move'];
+
 	for(i=0; i<map.length; i++) {
 		v = map[i];
 		s = (v=='x') ? 'disabled' : 'idle';

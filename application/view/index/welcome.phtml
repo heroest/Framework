@@ -5,3 +5,13 @@
 	<a href="mailto:kakashi@live.cn">kakashi@live.cn</a>
 	</address>
 </div>
+
+<script>
+$(document).ready(function(){
+
+	$.get('https://us.api.battle.net/wow/spell/8056?locale=en_US&apikey=gea6xyt7pjfy5b2csx8ya3u48k7nsm4a', function(data){
+		console.log(data);
+	});
+
+});
+</script>

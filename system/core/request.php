@@ -17,10 +17,10 @@ class request extends SystemClass
 				$this->data[$name][$key] = $value;
 			}
 		}
-		$_GET 		= array();
-		$_POST 		= array();
-		$_REQUEST 	= array();
-		$_SERVER 	= array();
+		$_GET 	  = array();
+		$_POST 	  = array();
+		$_REQUEST = array();
+		$_SERVER  = array();
 	}
 
 	public function getQuery($key = '')

@@ -17,8 +17,9 @@ class security extends SystemClass
 		$url = $this->request->getQuery('_url');
 		$url = implode('', explode('/', $url));
 		$pattern = '/[^' . $this->config['permitted_uri_chars'] . ']/';
-		if(preg_match($pattern, $url)){
-			show_error('Error in security->url_check(): url contains disallowed characters.');
+		if(preg_match($pattern, $url, $param)){
+			$str = implode(' ', $param);
+			show_error("Error in security->url_check(): url contains disallowed characters: $str");
 		}
 		return;
 	}
@@ -44,7 +45,7 @@ class security extends SystemClass
 										'token'   => $csrf['token'],
 										'expires' => time() + $duration,
 									);
-		$this->session->set(  array('CSRF' => array_slice($stored, $limit))  );
+		$this->session->set( array('CSRF' => array_slice($stored, $limit)) );
 		$this->csrf = $csrf;
 	}
 

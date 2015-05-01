@@ -50,18 +50,18 @@ class session_db extends AbstractModel implements \SessionHandlerInterface
 	public function write($session_id, $session_data)
 	{
 		$sql_data = array(
-						'session_id'	=> "'$session_id'",
-						'session_data' 	=> "'$session_data'",
+						'session_id'	=> "$session_id",
+						'session_data' 	=> "$session_data",
 		);
 		
 		if(! empty($this->index_id)) {
-			return $this->custom_update($this->table_name, $sql_data, "id='{$this->index_id}'") == 1
-				? False
-				: True;
+			return ($this->custom_update($this->table_name, $sql_data, array('id' => $this->index_id)) == 1)
+			 	? True
+			 	: False;
 		} else {
-			return $this->custom_insert($this->table_name, $sql_data) == 0
-				? False
-				: True;
+			return $this->custom_insert($this->table_name, $sql_data) == 1
+				? True
+				: False;
 		}
 		
 

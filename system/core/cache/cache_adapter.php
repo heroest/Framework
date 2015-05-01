@@ -4,7 +4,7 @@ namespace lightning\system\core\cache;
 use lightning\system\core\SystemClass;
 
 if ( ! defined('framework_name')) exit('No direct script access allowed');
-class cache extends SystemClass
+class cache_adapter extends SystemClass
 {
 	private $config;
 	private $handler = null;

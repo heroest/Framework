@@ -13,8 +13,9 @@ class DI
 		$this->config = array();
 	}
 
-	public function set_config($config_array) 
+	public function set_config($config_file_path) 
 	{
+		$config_array = include_once($config_file_path);
 		$this->config = $config_array;
 		return $this;
 	}

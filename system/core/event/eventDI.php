@@ -21,6 +21,15 @@ class eventDI extends SystemClass
 	{
 		return $this->storage;
 	}
+
+	public function mount($eventDI)
+	{
+		foreach($eventDI as $event => $functions) {
+			foreach($functions as $func) {
+				$this->storage[$event][] = $func;
+			}
+		}
+	}
 }
 
 ?>

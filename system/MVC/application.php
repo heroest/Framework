@@ -1,10 +1,17 @@
-<?php
-namespace lightning\system\MVC;
+<?php namespace lightning\system\MVC; 
+if ( ! defined('framework_name')) exit('No direct script access allowed');
+
+
 use lightning\system\core\SystemClass;
 
-if ( ! defined('framework_name')) exit('No direct script access allowed');
 class application extends SystemClass
 {
+	private $_url;
+	private $_controller;
+	private $_action;
+	private $_param;
+	private $_page;
+
 	public function __construct($di='')
 	{
 		$sysClass = SystemClass::getInstance();
@@ -16,35 +23,51 @@ class application extends SystemClass
 
 	public function handle()
 	{
-		$this->eventManager->emit('before_parse_URL');
-		$url = $this->request->getQuery('_url');
-		list($controller, $action, $param_arr) = $this->router->parse($url);
-		return $this->dispatch($controller, $action, $param_arr);
+		$this->_url = $this->request->getQuery('_url');
+		$this->eventManager->emit('event_parse_url');
+		
+		list($this->_controller, $this->_action, $this->_param) = $this->router->parse($this->_url);
+		return $this->dispatch();
 	}
 
-	public function dispatch($controller, $action, $param_arr=array())
+	public function dispatch()
 	{
 		ob_start();
+		$this->eventManager->emit('event_controller_execution');
+
+		$controller = $this->_controller;
+		$action 	= $this->_action;
+		$param 		= $this->_param;
 
 		$controller_class = "lightning\application\controller\\$controller";
 		$dispatcher = new $controller_class();
 
-		$this->eventManager->emit('before_controller_execution',
-								array(
-										'controller' => $controller,
-										'action'	 => $action,
-										'param_arr'	 => $param_arr,
-									));
+		
 		if(method_exists($dispatcher, $action)) {
-			call_user_func_array(array($dispatcher, $action), $param_arr);
+			call_user_func_array(array($dispatcher, $action), $param);
+			$this->eventManager
+							->emit("event_$controller")
+							->emit("event_$controller->$action");
 		} else {
 			show_error("Error in application->Dispatch(): [$action] does not exists in [$controller]");
 		}
 
-		$this->eventManager->emit('before_get_output');
-		$page = ob_get_contents();
+		$this->_page = ob_get_contents();
+		$this->eventManager->emit('event_get_page');
 		ob_end_clean();
-		return $page;
+		return $this->_page;
+	}
+
+	public function get($type)
+	{
+		$type = "_$type";
+		return $this->$type;
+	}
+
+	public function set($type, $data)
+	{
+		$type = "_$type";
+		$this->$type = $data;
 	}
 }
 

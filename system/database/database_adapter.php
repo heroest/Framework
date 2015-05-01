@@ -12,6 +12,12 @@ class database_adapter extends SystemClass
 		$this->config = $this->get_config('database');
 	}
 
+	public function load_config($config_arr)
+	{
+		$this->config = $config_arr;
+		return $this;
+	}
+
 	public function connect()
 	{
 		$type 		= $this->config['type'];

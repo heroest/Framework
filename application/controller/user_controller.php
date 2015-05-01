@@ -18,14 +18,14 @@ class user_controller extends AbstractController
 
 			$user = new user();
 			$user_data = $user->login($username, $password);
-			if(! $user_data) {
-				$viewArray['error'] = 'Wrong Username or Password!';
+			if($user_data == false) {
+				$viewArray['error'] = 'Wrong Username or Password!' . $user->get_error();
 				$viewArray['title'] = 'Fail to login';
 			} else {
 				$this->session->set(array(
 					'user_login' => array(
 							'username' => $user_data['username'],
-							'user_id'  => $user_data['id'],
+							'user_id'  => $user_data['user_id'],
 					)
 				));
 				if($remember === 'true') {
@@ -39,8 +39,14 @@ class user_controller extends AbstractController
 				} else {
 					$this->session->delete('remember');
 				}
+				if($this->session->has('current_page')) {
+					$url = $this->session->pop('current_page');
+					redirect($url);
+				} else {
+					echo 'has nothing';
+					redirect('/');
+				}
 			}
-
 		}
 
 		$storage = $this->session->get('remember');
@@ -58,12 +64,38 @@ class user_controller extends AbstractController
 	{
 		$viewArray['title'] = 'Register';
 		if($this->request->get_request_method() == 'post'){
-
+			$post_data = (array)$this->request->getPost();
+			$user = new user();
+			$result = $user->register($post_data);
+			if($result === false) {
+				$viewArray['error'] = $user->get_error();
+			} else {
+				$this->session->set(array('user_login' => array(
+						'username' => $result['username'],
+						'user_id'  => $result['user_id'],
+					)
+				));
+				if($this->session->has('current_page')) {
+					redirect($this->session->pop('current_page'));
+				} else {
+					redirect('/');
+				}
+			}
 		}
 		$this->render('layout/header', $viewArray);
 		$this->render('user/register', $viewArray);
 		$this->render('layout/footer');
 
+	}
+
+	public function logoutAction()
+	{
+		$this->session->delete('user_login');
+		if($this->session->has('current_page')) {
+			redirect($this->session->pop('current_page'));
+		} else {
+			redirect('/');
+		}
 	}
 }
 

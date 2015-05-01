@@ -3,7 +3,7 @@ define('_start', microtime());
 error_reporting(E_ALL);
 
 header('Content-Type: text/html; charset=utf-8');
-define('framework_name', 'lightning 1.0');
+define('framework_name', 'lightning');
 $di = require_once(dirname(dirname(__FILE__)) . '/system/bootstrap.php');
 
 /*
@@ -21,7 +21,6 @@ $di->override('session', function(){
 	return $session;
 });
 */
-
 
 $app = new lightning\system\MVC\application($di);
 echo $app->handle();

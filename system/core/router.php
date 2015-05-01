@@ -1,7 +1,6 @@
-<?php
-namespace lightning\system\core;
-
+<?php namespace lightning\system\core;
 if ( ! defined('framework_name')) exit('No direct script access allowed');
+
 class router extends SystemClass
 {
 	private $map;

@@ -17,7 +17,7 @@ class cache_apc extends SystemClass implements CacheHandler
 
 	public function set($key, $value, $timeout)
 	{
-		$key = "{$this->prefix}#{$key}";
+		$key = "{$this->prefix}_{$key}";
 		return apc_store($key, $value, $timeout);
 	}
 
@@ -25,7 +25,7 @@ class cache_apc extends SystemClass implements CacheHandler
 	{
 		$data = array();
 		foreach($arr as $key=>$value) {
-			$key = "{$this->prefix}#{$key}";
+			$key = "{$this->prefix}_{$key}";
 			$data[$key] = $value;
 		}
 		return apc_store($data, $timeout);
@@ -33,7 +33,7 @@ class cache_apc extends SystemClass implements CacheHandler
 
 	public function add($key, $value, $timeout)
 	{
-		$key = "{$this->prefix}#{$key}";
+		$key = "{$this->prefix}_{$key}";
 		return apc_add($key, $value, $timeout);
 	}
 
@@ -41,7 +41,7 @@ class cache_apc extends SystemClass implements CacheHandler
 	{
 		$data = array();
 		foreach($arr as $key=>$value) {
-			$key = "{$this->prefix}#{$key}";
+			$key = "{$this->prefix}_{$key}";
 			$data[$key] = $value;
 		}
 		return apc_add($data, $timeout);
@@ -49,7 +49,7 @@ class cache_apc extends SystemClass implements CacheHandler
 
 	public function has($key)
 	{
-		$key = "{$this->prefix}#{$key}";
+		$key = "{$this->prefix}_{$key}";
 		return apc_exists($key);
 	}
 
@@ -57,7 +57,7 @@ class cache_apc extends SystemClass implements CacheHandler
 	{
 		$data = array();
 		foreach($arr as $keye) {
-			$key = "{$this->prefix}#{$key}";
+			$key = "{$this->prefix}_{$key}";
 			$data[] = $key;
 		}
 		return apc_exists($data);
@@ -65,13 +65,13 @@ class cache_apc extends SystemClass implements CacheHandler
 
 	public function delete($key)
 	{
-		$key = "{$this->prefix}#{$key}";
+		$key = "{$this->prefix}_{$key}";
 		return apc_delete($key);
 	}
 
 	public function destory()
 	{
-		$pattern = "/{$this->prefix}#/";
+		$pattern = "/{$this->prefix}_/";
 		foreach(new \APCIterator('user', $pattern) as $item) {
 			apc_delete($item['key']);
 		}

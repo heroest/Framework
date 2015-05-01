@@ -24,7 +24,7 @@ class session_apc extends SystemClass implements \SessionHandlerInterface
 
 	public function read($session_id)
 	{
-		$key = "{$this->prefix}#{$session_id}";
+		$key = "{$this->prefix}_{$session_id}";
 		if(apc_exists($key)) {
 			$this->key = $key;
 			return apc_fetch($key);
@@ -36,7 +36,7 @@ class session_apc extends SystemClass implements \SessionHandlerInterface
 	public function write($session_id, $session_data)
 	{
 		if(! empty($this->key)) apc_delete($this->key);
-		$key = "{$this->prefix}#{$session_id}";
+		$key = "{$this->prefix}_{$session_id}";
 		$duration = $this->config['duration'];
 		return apc_store($key, $session_data, $duration);
 	}

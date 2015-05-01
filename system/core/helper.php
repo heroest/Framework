@@ -10,7 +10,7 @@ function base_url($url='')
 
 function show_error($message)
 {
-	ob_clean();
+	//ob_clean();
 	header("HTTP/1.0 500");
 	$config = lightning\system\core\SystemClass::getInstance()->get_config('website');
 
@@ -57,12 +57,9 @@ function show_404($message)
 	exit(include_once(view_path . "error/404.phtml"));
 }
 
-function redirect($url)
+function redirect($url, $refresh = true)
 {
-	if($refresh) {
-		header('LOCATION: ' . $url);
-		exit();
-	}
+	header('LOCATION: ' . base_url($url));
 }
 
 function Chash($code='', $salt='', $algo='')

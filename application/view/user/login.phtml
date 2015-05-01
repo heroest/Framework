@@ -44,12 +44,19 @@
 
 <script>
 $(document).ready(function(){
+	
 	$("body")
 		.css('background-image', "url('/img/user-bg.jpg')")
 		.css('background-repeat', 'no-repeat')
 		.css('background-size', '100% 100%');
+	
+	rm = $(".remember-me");
+	rm.bootstrapSwitch('state', rm.val() == 'true');
+	rm.on('switchChange.bootstrapSwitch', function(event, state){
+		flag = (state) ? 'true' : 'false';
+		rm.val(flag);
+	});
 
-	$(".remember-me")
-		.bootstrapSwitch('state', $(this).val());
+
 });
 </script>

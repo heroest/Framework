@@ -35,11 +35,6 @@ class SystemClass
 		show_error("Error in SystemClass->__set(): $key, This action is not Allowed");
 	}
 
-	public function set_cache($obj)
-	{
-		self::$_cache = $obj;
-	}
-
 	public function set_DI($di)
 	{
 		self::$_storage = $di->load_storage();
