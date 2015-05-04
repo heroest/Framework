@@ -1,10 +1,10 @@
 <?php
 namespace lightning\system\core\cache\driver;
 use lightning\system\core\SystemClass;
-use lightning\system\core\cache\CacheHandler;
+use lightning\system\core\cache\Interface_cache_handler;
 
 if(! defined('framework_name')) exit('No direct script access allowed');
-class cache_apc extends SystemClass implements CacheHandler
+class cache_apc extends SystemClass implements Interface_cache_handler
 {
 	private $prefix;
 	private $config;

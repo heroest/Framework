@@ -4,12 +4,12 @@ $eventDI = new eventDI();
 
 //url check
 $eventDI->on('event_parse_url', function($app) {
-	$app->security->url_check();
 	$app->security->add_security_header();
+	$app->security->url_check();
 });
 
 //csrf auto check on post action
-$eventDI->on('_controller_execution', function($app) {
+$eventDI->on('event_controller_execution', function($app) {
 	if($app->request->get_request_method() == 'post') {
 		$app->security->csrf_validate_post();
 	}
@@ -17,11 +17,13 @@ $eventDI->on('_controller_execution', function($app) {
 
 
 $eventDI->on('event_controller_execution', function($app) {
-	/*
+	/* force user to login first
+
 	if(!$app->session->has('user_login') and $app->get('controller') !== 'user_controller') {
 		$app->set('controller', 'user_controller');
 		$app->set('action', 'loginAction');
 	}
+	
 	*/
 	if($app->get('controller') !== 'user_controller') {
 		$app->session->set(array('current_page' => $app->get('url')));

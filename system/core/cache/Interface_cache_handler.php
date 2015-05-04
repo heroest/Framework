@@ -1,7 +1,8 @@
-<?php
-namespace lightning\system\core\cache;
+<?php namespace lightning\system\core\cache;
 if(! defined('framework_name')) exit('No direct script access allowed');
-Interface CacheHandler
+
+
+Interface Interface_cache_handler
 {
 	public function set($key, $value, $timeout);
 

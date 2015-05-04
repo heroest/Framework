@@ -1,4 +1,4 @@
-<?php namespace lightning\application\model;
+<?php namespace lightning\application\model\DAO;
 if ( ! defined('framework_name')) exit('No direct script access allowed');
 
 use \lightning\system\MVC\AbstractModel;
@@ -7,12 +7,10 @@ use \lightning\system\core\SystemClass;
 class user extends AbstractModel
 {
 	private $table = 'users';
-	private $instance;
 
-	public function __construct()
+	public function __construct($db_adapter = null)
 	{
-		parent::__construct();
-		$this->instance = SystemClass::getInstance();
+		parent::__construct($db_adapter);
 	}
 
 	public function login($username, $password)

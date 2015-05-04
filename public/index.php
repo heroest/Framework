@@ -1,5 +1,7 @@
 <?php
 define('_start', microtime());
+date_default_timezone_set('America/Toronto');
+
 error_reporting(E_ALL);
 
 header('Content-Type: text/html; charset=utf-8');

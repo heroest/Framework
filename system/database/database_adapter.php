@@ -12,14 +12,12 @@ class database_adapter extends SystemClass
 		$this->config = $this->get_config('database');
 	}
 
-	public function load_config($config_arr)
+	public function connect($config_arr = array())
 	{
-		$this->config = $config_arr;
-		return $this;
-	}
+		if(! empty($config_arr)) {
+			$this->config = $config_arr;
+		}
 
-	public function connect()
-	{
 		$type 		= $this->config['type'];
 		$host 		= $this->config['host'];
 		$port 		= $this->config['port'];
@@ -38,7 +36,7 @@ class database_adapter extends SystemClass
 			return $pdo;
 		} catch (\PDOException $e) {
 			$msg = $e->getMessage();
-			show_error("Error in database_adapter->connect($dsn): $msg");
+			show_error("Error in database_adapter->connect($type://$host:$port): $msg");
 		}
 	}
 }

@@ -4,7 +4,6 @@ namespace lightning\system\core;
 if ( ! defined('framework_name')) exit('No direct script access allowed');
 class SystemClass
 {
-	private static $_cache;
 	private static $_DI;
 	private static $_storage;
 	private static $_config;

@@ -1,8 +1,8 @@
-<?php
-namespace lightning\application\controller;
+<?php namespace lightning\application\controller;
+if ( ! defined('framework_name')) exit('No direct script access allowed');
+
 use lightning\system\MVC\AbstractController;
 
-if ( ! defined('framework_name')) exit('No direct script access allowed');
 class game_controller extends AbstractController
 {
 	public function indexAction()

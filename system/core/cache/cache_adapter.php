@@ -1,9 +1,9 @@
-<?php
+<?php namespace lightning\system\core\cache;
+if ( ! defined('framework_name')) exit('No direct script access allowed');
 
-namespace lightning\system\core\cache;
+
 use lightning\system\core\SystemClass;
 
-if ( ! defined('framework_name')) exit('No direct script access allowed');
 class cache_adapter extends SystemClass
 {
 	private $config;
@@ -11,7 +11,7 @@ class cache_adapter extends SystemClass
 
 	public function __construct(){}
 
-	public function set_handler(CacheHandler $handler = null)
+	public function set_handler(Interface_cache_handler $handler = null)
 	{
 		$this->handler = $handler;
 	}

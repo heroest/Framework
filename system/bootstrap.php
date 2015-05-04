@@ -17,7 +17,6 @@ define('extend_path', 		application_path . 'extend/');
 define('config_path', 		application_path . 'config/');
 define('library_path',		application_path . 'library/');
 
-date_default_timezone_set('America/Toronto');
 
 //Load helper functions
 require_once(core_path . 'helper.php');
@@ -60,7 +59,7 @@ $di->set('router', function() {
 
 $di->set('cache', function() {
 	$cache = new lightning\system\core\cache\cache_adapter();
-	$cache->set_handler(new lightning\system\core\cache\driver\cache_apc());
+	$cache->set_handler( new lightning\system\core\cache\driver\cache_apc() );
 	return $cache;
 });
 

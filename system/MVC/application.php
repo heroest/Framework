@@ -46,6 +46,7 @@ class application extends SystemClass
 		if(method_exists($dispatcher, $action)) {
 			call_user_func_array(array($dispatcher, $action), $param);
 			$this->eventManager
+							->emit("event_$action")
 							->emit("event_$controller")
 							->emit("event_$controller->$action");
 		} else {

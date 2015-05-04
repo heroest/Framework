@@ -2,7 +2,7 @@
 if ( ! defined('framework_name')) exit('No direct script access allowed');
 
 use lightning\system\MVC\AbstractController;
-use lightning\application\model\user;
+use lightning\application\model\service\user;
 
 
 class user_controller extends AbstractController
@@ -18,7 +18,8 @@ class user_controller extends AbstractController
 
 			$user = new user();
 			$user_data = $user->login($username, $password);
-			if($user_data == false) {
+			if($user_data === false) {
+				$this->session->delete('remember');
 				$viewArray['error'] = 'Wrong Username or Password!' . $user->get_error();
 				$viewArray['title'] = 'Fail to login';
 			} else {
@@ -43,7 +44,6 @@ class user_controller extends AbstractController
 					$url = $this->session->pop('current_page');
 					redirect($url);
 				} else {
-					echo 'has nothing';
 					redirect('/');
 				}
 			}
