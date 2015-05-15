@@ -1,0 +1,31 @@
+table{
+	min-height:400px;
+}
+
+.house.Player, .store.Player {
+	background-color: #E0FFD1;
+}
+.house.Player:hover{
+	background-color: #99FF66;
+}
+
+.house.AI, .store.AI {
+	background-color: #FFE6E6;
+}
+
+td.house.Player {
+	cursor:pointer;
+}
+
+td.house {
+	height:100px;
+}
+
+
+th{
+	text-align: center;
+}
+div.console-panel {
+	overflow: auto;
+	max-height: 200px;
+}

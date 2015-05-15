@@ -15,6 +15,21 @@ class cache_apc extends SystemClass implements Interface_cache_handler
 		$this->prefix = $this->config['key_name_prefix'];
 	}
 
+	public function get($key)
+	{
+		$key = "{$this->prefix}_{$key}";
+		return apc_fetch($key);
+	}
+
+	public function get_arr($key_arr)
+	{
+		$prefix = $this->prefix;
+		$key_arr = array_map(function($item) use ($prefix) {
+			return "{$prefix}_item";
+		}, $key_arr);
+		return apc_fetch($key_arr);
+	}
+
 	public function set($key, $value, $timeout)
 	{
 		$key = "{$this->prefix}_{$key}";
@@ -71,7 +86,7 @@ class cache_apc extends SystemClass implements Interface_cache_handler
 
 	public function destory()
 	{
-		$pattern = "/{$this->prefix}_/";
+		$pattern = "#^{$this->prefix}_#";
 		foreach(new \APCIterator('user', $pattern) as $item) {
 			apc_delete($item['key']);
 		}

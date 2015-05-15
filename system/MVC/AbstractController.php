@@ -15,9 +15,9 @@ class AbstractController extends SystemClass
 		}
 		$template_path = view_path . $template . '.phtml';
 		if(! file_exists($template_path)) {
-			show_error("Error in ActionController->render(): view/$template.phtml file is missing");
+			show_error("Error in AbstractController->render(): view/$template.phtml file is missing");
 		} else {
-			include_once($template_path);
+			include($template_path);
 		}	
 	}
 }

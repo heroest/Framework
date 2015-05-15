@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ index.php?_url=$1 [QSA,L]
+	RewriteRule ^$ index.php?_domain=%{HTTP_HOST}&_url= [QSA,L]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d 
+	RewriteRule ^(.*)$ index.php?_domain=%{HTTP_HOST}&_url=$1 [QSA,L]
 </IfModule>
 allow from all

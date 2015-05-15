@@ -1,9 +1,12 @@
+<!DOCTYPE HTML>
 <html>
 <head>
 <title><?php echo $title ?> - Lightning</title>
 <!-- Javascript Library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script async src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://fb.me/react-0.13.3.js"></script>
+<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
 
 
 
@@ -12,7 +15,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/css/style.css">
 
+<script>
+$(document).ready(function(){
 
+	$("a[href='" + window.location.pathname + "']").closest(".nav-element").addClass('active');
+
+});
+</script>
 </head>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -34,14 +43,21 @@
 			</a>
 		</li>
 
-		<!-- game -->
+		<!-- Hex-a-bomb -->
 		<li class='nav-element'>
-			<a href='/game'>
+			<a href='/game/hex-a-bomb'>
 				<span class='glyphicon glyphicon-fire'></span><br />
-				Game
+				Hex-A-Bomb
 			</a>
 		</li>
 
+		<!-- Kalah -->
+		<li class='nav-element'>
+			<a href='/game/kalah'>
+				<span class='glyphicon glyphicon-flash'></span><br />
+				Kalah
+			</a>
+		</li>
 
 	</ul>
 

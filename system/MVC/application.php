@@ -6,6 +6,7 @@ use lightning\system\core\SystemClass;
 
 class application extends SystemClass
 {
+	private $_config;
 	private $_url;
 	private $_controller;
 	private $_action;
@@ -44,11 +45,11 @@ class application extends SystemClass
 
 		
 		if(method_exists($dispatcher, $action)) {
-			call_user_func_array(array($dispatcher, $action), $param);
 			$this->eventManager
 							->emit("event_$action")
 							->emit("event_$controller")
 							->emit("event_$controller->$action");
+			call_user_func_array(array($dispatcher, $action), $param);
 		} else {
 			show_error("Error in application->Dispatch(): [$action] does not exists in [$controller]");
 		}

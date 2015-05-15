@@ -57,23 +57,6 @@ $di->set('router', function() {
 	return new lightning\system\core\router();
 });
 
-$di->set('cache', function() {
-	$cache = new lightning\system\core\cache\cache_adapter();
-	$cache->set_handler( new lightning\system\core\cache\driver\cache_apc() );
-	return $cache;
-});
-
-$di->set('session', function() {
-	$session = new lightning\system\core\session\session_adapter();
-	$session->start(null);
-	return $session;
-});
-
-$di->set('db', function() {
-	$db_adapter = new lightning\system\database\database_adapter();
-	return $db_adapter->connect();
-});
-
 $di->set('security', function() {
 	return new lightning\system\core\security();
 });
@@ -82,8 +65,6 @@ $di->set('eventManager', function() {
 	return new lightning\system\core\event\eventManager(require_once(config_path . 'event.php'));
 });
 
-//load library
-$di->set_by_array(require_once(config_path . 'load.php'));
 
 return $di;
 ?>

@@ -16,6 +16,11 @@ class cache_adapter extends SystemClass
 		$this->handler = $handler;
 	}
 
+	public function get($key)
+	{
+		return $this->handler->get($key);
+	}
+
 	public function set($key, $value, $timeout=0)
 	{
 		return $this->handler->set($key, $value, $timeout);

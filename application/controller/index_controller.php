@@ -16,6 +16,12 @@ class index_controller extends AbstractController
 		$this->render('layout/footer', $data);
 	}
 
+	public function getCSRF_Action()
+	{
+		echo json_encode($this->security->csrf_token());
+	}
+
+
 }
 
 ?>

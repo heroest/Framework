@@ -10,6 +10,7 @@ class request extends SystemClass
 		$globals = array('GET' => $_GET, 'POST' => $_POST, 'REQUEST' => $_REQUEST, 
 						'SERVER' => $_SERVER);
 		foreach($globals as $name => $global) {
+			$this->data[$name] = array();
 			foreach($global as $key=>$value) {
 				$key 	= $this->security->clean_key($key);
 				$value 	= $this->security->clean_value($value);
@@ -44,6 +45,13 @@ class request extends SystemClass
 		}
 	}
 
+	public function getRequest($key)
+	{
+		if(isset($this->data['POST'][$key])) return $this->data['POST'][$key];
+		if(isset($this->data['GET'][$key])) return $this->data['GET'][$key];
+		return False;
+	}
+
 	public function get_request_method()
 	{
 		return strtolower($this->data['SERVER']['REQUEST_METHOD']);
@@ -76,7 +84,7 @@ class request extends SystemClass
 		$type = 'HTTP_X_REQUESTED_WITH';
 		if(isset($this->data['SERVER'][$type]) 
 			&& !empty($this->data['SERVER'][$type]) 
-			&& strtolow($this->data['SERVER'][$type]) == 'xmlhttprequest' ){
+			&& strtolower($this->data['SERVER'][$type]) == 'xmlhttprequest' ){
 			return True;
 		} else {
 			return False;

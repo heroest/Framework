@@ -16,11 +16,12 @@ class user_controller extends AbstractController
 			$password = $this->request->getPost('password');
 			$remember = $this->request->getPost('remember-me');
 
+			$this->session->delete('remember');
 			$user = new user();
 			$user_data = $user->login($username, $password);
+
 			if($user_data === false) {
-				$this->session->delete('remember');
-				$viewArray['error'] = 'Wrong Username or Password!' . $user->get_error();
+				$viewArray['error'] = 'Error: Username or Password is incorrect.';
 				$viewArray['title'] = 'Fail to login';
 			} else {
 				$this->session->set(array(
@@ -36,15 +37,14 @@ class user_controller extends AbstractController
 							'password' => $password,
 							'remember' => $remember,
 							)
-					));
-				} else {
-					$this->session->delete('remember');
+					), true);
 				}
+
 				if($this->session->has('current_page')) {
 					$url = $this->session->pop('current_page');
-					redirect($url);
+					redirect(base_url($url));
 				} else {
-					redirect('/');
+					redirect(base_url());
 				}
 			}
 		}
@@ -76,9 +76,9 @@ class user_controller extends AbstractController
 					)
 				));
 				if($this->session->has('current_page')) {
-					redirect($this->session->pop('current_page'));
+					redirect(base_url($this->session->pop('current_page')));
 				} else {
-					redirect('/');
+					redirect(base_url());
 				}
 			}
 		}
@@ -92,9 +92,9 @@ class user_controller extends AbstractController
 	{
 		$this->session->delete('user_login');
 		if($this->session->has('current_page')) {
-			redirect($this->session->pop('current_page'));
+			redirect(base_url($this->session->pop('current_page')));
 		} else {
-			redirect('/');
+			redirect(base_url());
 		}
 	}
 }

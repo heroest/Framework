@@ -134,7 +134,7 @@ class AbstractModel extends SystemClass
 		return $arr_a;
 	}
 
-	private function add_error($msg)
+	public function add_error($msg)
 	{
 		$msg = "<p class='text-danger'>{$msg}</p>";
 		$this->_error .= $msg;

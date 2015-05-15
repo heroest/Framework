@@ -4,6 +4,12 @@ if(! defined('framework_name')) exit('No direct script access allowed');
 
 Interface Interface_cache_handler
 {
+	public function get($key);
+
+
+	public function get_arr($key_arr);
+
+
 	public function set($key, $value, $timeout);
 
 

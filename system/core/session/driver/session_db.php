@@ -1,10 +1,10 @@
-<?php
-namespace lightning\system\core\session\driver;
+<?php namespace lightning\system\core\session\driver;
+if ( ! defined('framework_name')) exit('No direct script access allowed');
+
+
 use lightning\system\MVC\AbstractModel;
 use lightning\system\core\SystemClass;
 
-
-if ( ! defined('framework_name')) exit('No direct script access allowed');
 class session_db extends AbstractModel implements \SessionHandlerInterface
 {
 	private $pdo;
@@ -21,9 +21,9 @@ class session_db extends AbstractModel implements \SessionHandlerInterface
 	public function open($path, $session_name)
 	{
 		parent::__construct();
-		$config 			= $this->instance->get_config('session');
+		$this->config 		= $this->instance->get_config('session');
 		$this->pdo 			= $this->instance->db;
-		$this->table_name   = $config['db_table_name'];
+		$this->table_name   = $this->config['db_table_name'];
 	}
 
 	public function close()
@@ -51,7 +51,8 @@ class session_db extends AbstractModel implements \SessionHandlerInterface
 	{
 		$sql_data = array(
 						'session_id'	=> "$session_id",
-						'session_data' 	=> "$session_data",
+						'session_data'	=> "$session_data",
+						'actived' 		=> time(),
 		);
 		
 		if(! empty($this->index_id)) {
@@ -75,8 +76,11 @@ class session_db extends AbstractModel implements \SessionHandlerInterface
 
 	public function gc($maxlifetime)
 	{
-		return True;
+		$time = time() - $this->config['gc_timer'];
+		$sql = "DELETE FROM {$this->table_name} WHERE actived < '$time'";
+		return $this->custom_query($sql);
 	}
+
 }
 
 ?>

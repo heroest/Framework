@@ -18,7 +18,7 @@ class user_menu_helper extends AbstractController
 			$logout_link = $this->security->csrf_link('/user/logout');
 			$str = "
 				<li class='dropdown'>
-					<a href='#' class='dropdown-toggle nav-element' data-toggle='dropdown' role='button' aria-expanded='false'>
+					<a href='javascript:void()' class='dropdown-toggle nav-element' data-toggle='dropdown' role='button' aria-expanded='false'>
 						<span class='glyphicon glyphicon-user'></span><br /> [{$username}] <span class='caret'></span>
 					</a>
 					<ul class='dropdown-menu' role='menu'>
@@ -29,7 +29,7 @@ class user_menu_helper extends AbstractController
 				";
 		} else {
 			$str = "<li class='dropdown'>
-					<a href='#' class='dropdown-toggle nav-element' data-toggle='dropdown' role='button' aria-expanded='false'>
+					<a href='javascript:void()' class='dropdown-toggle nav-element' data-toggle='dropdown' role='button' aria-expanded='false'>
 						<span class='glyphicon glyphicon-user'></span><br />
 						User<br />
 					</a>

@@ -1,8 +1,8 @@
-<?php
-namespace lightning\system\database;
+<?php namespace lightning\system\database;
+if ( ! defined('framework_name')) exit('No direct script access allowed');
+
 use lightning\system\core\SystemClass;
 
-if ( ! defined('framework_name')) exit('No direct script access allowed');
 class database_adapter extends SystemClass
 {
 	private $config;

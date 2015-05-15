@@ -15,16 +15,19 @@ $config['website']['show_error_stack'] 	= True;
 * session setting
 * ===============================================================
 */
-$config['session']['type']			  = 'apc';            	//'db', 'apc' or 'default'
-$config['session']['duration']		  = '7200'; 				//in seconds
+$config['session']['session_name']	  = '';                     //or leave it empty, system will auto set name to domain name
+$config['session']['type']			  = 'apc';            		//'db', 'apc' or 'default'
+$config['session']['duration']		  = 7200; 					//in seconds
 $config['session']['db_table_name']	  = 'lightning_session';	//when use db
-$config['session']['key_name_prefix'] = 'lightning_session';  //when use memory-storage
+$config['session']['key_name_prefix'] = 'lightning_session';  	//when use memory-storage
+$config['session']['gc_timer']		  = 1209600;		//after xxx seconds, all session will be destoried
+
+
 /* 
 * ===============================================================
 * Database setting
 * ===============================================================
 */
-
 $config['database']['type'] 	= 'mysql';
 $config['database']['host'] 	= "localhost";
 $config['database']['username'] = 'root';
@@ -50,14 +53,13 @@ $config['security']['csrf_token_limit']		= 5; //number of token stored in sessio
 		no_script: <stript> tag will be esacped
 		no_check: 	no tag will be escaped              */
 $config['security']['xss_clean']		= 'no_script';
-
 $config['security']['security_header']	= array(
 												'X-Content-Type-Options: nosniff',
 												'X-XSS-Protection: 1; mode=block',
 												'X-Powered-By: ASP.NET',
 												'X-Frame-Options: deny',
 												'strict-transport-security: max-age=7200',
-											);
+												);
 
 
 /* 
@@ -66,6 +68,16 @@ $config['security']['security_header']	= array(
 * ===============================================================
 */
 $config['cache']['key_name_prefix'] = 'lightning_storage';
+
+/* 
+* ===============================================================
+* google captcha setting
+* ===============================================================
+*/
+$config['captcha']['public_key'] = '6Lc-swYTAAAAAE6b6-tk-z6DKW8tLOmZq9WUPwoa';
+$config['captcha']['secret_key'] = '6Lc-swYTAAAAAA4VRSt9Szcyh9CmpESq4qBwaGUI';
+
+
 
 return $config;
 ?>

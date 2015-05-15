@@ -1,8 +1,9 @@
-<?php
-namespace lightning\system\core\event;
+<?php namespace lightning\system\core\event;
+if ( ! defined('framework_name')) exit('No direct script access allowed');
+
 use lightning\system\core\SystemClass;
 
-if ( ! defined('framework_name')) exit('No direct script access allowed');
+
 class eventDI extends SystemClass
 {
 	private $storage;

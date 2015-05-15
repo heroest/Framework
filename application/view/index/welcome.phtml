@@ -1,7 +1,24 @@
+<script type="text/jsx">
+$(document).ready(function(){
+
+var CommentBox = React.createClass({
+  render: function() {
+    return <p>Hello, {this.props.username}. I am a CommentBox.</p>;
+  }
+});
+React.render(<CommentBox username="neil" />,  $("div#document")[0]);
+
+
+});
+
+
+</script>
 
 <div class="body">
 	<address>
 	<strong>Neosteam</strong><br>
 	<a href="mailto:kakashi@live.cn">kakashi@live.cn</a>
 	</address>
+
+	<div id='document'></div>
 </div>

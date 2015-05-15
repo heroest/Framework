@@ -1,0 +1,84 @@
+<div class="body">
+	<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th class="AI score">AI - store</th>
+			<th colspan='6'>Houses</th>
+			<th class="Player score">Player - store</th>
+		</tr>
+	</thead>
+
+	<tr class="board">
+		<td rowspan='2' class='col-md-1 store AI' y='0' x='0' hold='0'></td>
+		<td class='col-md-1 house AI' y='0' x='1' hold='0'></td>
+		<td class='col-md-1 house AI' y='0' x='2' hold='0'></td>
+		<td class='col-md-1 house AI' y='0' x='3' hold='0'></td>
+		<td class='col-md-1 house AI' y='0' x='4' hold='0'></td>
+		<td class='col-md-1 house AI' y='0' x='5' hold='0'></td>
+		<td class='col-md-1 house AI' y='0' x='6' hold='0'></td>
+		<td rowspan='2' class='col-md-1 store Player' y='1' x='7' hold='0'></td>
+	</tr>
+		
+	<tr class="board">
+		<td class='col-md-1 house Player' y='1' x='1' hold='0'></td>
+		<td class='col-md-1 house Player' y='1' x='2' hold='0'></td>
+		<td class='col-md-1 house Player' y='1' x='3' hold='0'></td>
+		<td class='col-md-1 house Player' y='1' x='4' hold='0'></td>
+		<td class='col-md-1 house Player' y='1' x='5' hold='0'></td>
+		<td class='col-md-1 house Player' y='1' x='6' hold='0'></td>
+	</tr>
+	</table>
+	<div class="message"></div>
+	<div class="input-group" style='max-width:20%'>
+		<input type="text" class="form-control" placeholder='Total Number of Seed' id='seed' value='60'>
+		<span class="input-group-btn">
+		<button class="btn btn-success" type="button" id='play'>Play</button>
+		</span>
+	</div><!-- /input-group -->
+
+	<br />
+	<div class="panel panel-success">
+		<div class="panel-heading" status='standby'>AI is Standing By...</div>
+		<div class="panel-body console-panel">
+		</div>
+	</div>
+</div>
+
+<link rel="stylesheet" href="/css/kalah.css">
+<script src="/js/kalah.js"></script>
+
+<!-- JQuery UI -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
+<script async src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<!-- /JQuery UI -->
+
+
+<script type="text/javascript">
+var playing;
+var seed_icon = "<span class='glyphicon glyphicon-star-empty'></span>";
+$(document).ready(function(){
+	
+	$("#play").click(function(){
+		playing = 'Player';
+		$("th").css("background-color", "white");
+		$("th.Player").css("background-color", "red");
+		game_init($("#seed").val());
+
+		$("td.house.Player").click(function() {
+			if($(this).hasClass(playing)) {
+				game_move($(this));
+				game_board_update();
+				if(playing == 'AI') game_AI();
+			}
+		});
+		$("td.house.AI").bind('ai_click', function() {
+			if($(this).hasClass(playing)) {
+				game_move($(this));
+				game_board_update();
+				if(playing == 'AI') game_AI();
+			}
+		});
+	});
+
+});
+</script>

@@ -57,9 +57,11 @@ function show_404($message)
 	exit(include_once(view_path . "error/404.phtml"));
 }
 
-function redirect($url, $refresh = true)
+function redirect($url='', $refresh = true)
 {
-	header('LOCATION: ' . base_url($url));
+	$url = empty($url) ? base_url() : $url;
+	header('LOCATION: ' . $url);
+	exit();
 }
 
 function Chash($code='', $salt='', $algo='')
@@ -114,12 +116,25 @@ function Cpath($path)
 	return substr($path, strlen($root) - 1);
 }
 
+function ip_to_bit($ip)
+{
+	$arr = array_map(function($item){
+		return str_pad($item, 3, '0', STR_PAD_LEFT);
+	}, explode(".", $ip));
+	$arr = str_split(implode("", $arr));
+	$ret = array();
+	foreach($arr as $item) {
+		$ret[] = pow(2, intval($item));
+	}
+	return implode(" ", $ret);
+}
+
 //array_column for php < 5.5
 if(! function_exists('array_column')) {
 
 	function array_column($arr, $key)
 	{
-		array_map($arr, function($item) use ($key) {
+		return array_map($arr, function($item) use ($key) {
 			return $item[$key];
 		});
 	}

@@ -21,7 +21,7 @@ class user extends AbstractModel
 		$data = $this->custom_fetchRow($sql);
 		if(empty($data)) return false;
 		$match = Chash($password, $data['salt']);
-		if($match === $data['password']) {
+		if( Cmatch($match, $data['password']) ) {
 			return array('username' => $username, 'user_id' => $data['id']);
 		} else {
 			return false;

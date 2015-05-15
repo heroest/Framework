@@ -37,7 +37,7 @@ class session_apc extends SystemClass implements \SessionHandlerInterface
 	{
 		if(! empty($this->key)) apc_delete($this->key);
 		$key = "{$this->prefix}_{$session_id}";
-		$duration = $this->config['duration'];
+		$duration = $this->config['gc_timer'];
 		return apc_store($key, $session_data, $duration);
 	}
 
