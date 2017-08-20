@@ -1,6 +1,6 @@
-Project abandoned
+Project Abandoned
 =========
 
-My very first Framework
+My very first Framework...just keep it for memory.
 
 
