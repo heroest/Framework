@@ -1,6 +1,6 @@
-Framework
+Project abandoned
 =========
 
-kakashi@live.cn
+My very first Framework
 
-Demo: http://52.24.24.186/
+
